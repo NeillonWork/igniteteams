@@ -62,7 +62,8 @@ Desafios adicionais inserido ao projeto:
 <li>Expo - Managed Workflow</li>
 <li>TypeScript</li>
 <li>Styled-components</li>
-<li>lucide-react-native</li>
+<li>phosphor-react-native</li>
+<li>svg-react-native</li>
 <li>Expo Go</li>
 <li>Android Studio</li>
 <li>Expo Go</li>
