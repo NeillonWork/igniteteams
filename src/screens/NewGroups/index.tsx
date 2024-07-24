@@ -15,8 +15,7 @@ export function NewGoups() {
           subtitle="crie a turma para adicionar as pessoas"
         />
         <Input
-          placeholder="Digite  nome da turma"
-          placeholderTextColor={"#fff"}
+          placeholder="Nome da turma"
         />
         <Button title="Criar" style={{marginTop:20}}/>
       </Content>
