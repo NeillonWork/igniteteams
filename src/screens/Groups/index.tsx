@@ -6,6 +6,7 @@ import { Header } from "@components/Header";
 import { Highlight } from "@components/Highlight";
 import { ListEmpty } from "@components/ListEmpty";
 import { GroupCard } from "@components/GroupCard";
+import { Button } from "@components/Button";
 
 export function Groups() {
   // const [groups, setGroups] = useState<string[]>(["Galera do Neillon", "Turma da Marina"]);
@@ -24,6 +25,8 @@ export function Groups() {
           <ListEmpty message="Que tal cadastrar a primeira turma?" />
         )}
       />
+
+      <Button title="Criar nova turma"/>
     </Container>
   );
 }
