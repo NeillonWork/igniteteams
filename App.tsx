@@ -11,6 +11,7 @@ import theme from "./src/theme/index";
 import { Loading } from "@components/Loading";
 import { StatusBar } from "react-native";
 import { NewGoups } from "@screens/NewGroups";
+import { Players } from "@screens/Players";
 
 export default function App() {
   //fontLoad
@@ -25,7 +26,7 @@ export default function App() {
       />
 
       {/*garantir o carregamento da fontes com if ternario */}
-      {fontsLoaded ? <NewGoups /> : <Loading />}
+      {fontsLoaded ? <Players /> : <Loading />}
 
       
     </ThemeProvider>
