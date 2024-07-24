@@ -10,6 +10,7 @@ import { Groups } from "@screens/Groups";
 import theme from "./src/theme/index";
 import { Loading } from "@components/Loading";
 import { StatusBar } from "react-native";
+import { NewGoups } from "@screens/NewGroups";
 
 export default function App() {
   //fontLoad
@@ -17,10 +18,16 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
 
-      {/*garantir o carregamento da fontes com if ternario*/}
-      {fontsLoaded ? <Groups /> : <Loading />}
+      {/*garantir o carregamento da fontes com if ternario */}
+      {fontsLoaded ? <NewGoups /> : <Loading />}
+
+      
     </ThemeProvider>
   );
 }
