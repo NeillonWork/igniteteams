@@ -1,21 +1,34 @@
 import { Header } from "@components/Header";
-import { Container, Form } from "./styles";
+import { Container, Form, HeaderList, NumbersOffPlayers } from "./styles";
 import { Highlight } from "@components/Highlight";
 import { Input } from "@components/Input";
 import { ButtonIcon } from "@components/ButtonIcon";
 import { Filter } from "@components/Filter";
 import { FlatList } from "react-native";
 import { useState } from "react";
+import { PlayerCard } from "@components/PlayerCard";
+import { ListEmpty } from "@components/ListEmpty";
+import { Button } from "@components/Button";
 
 export function Players() {
   const [team, setTeam] = useState("Time A");
+  const [players, setPlayers] = useState([
+   //"Neillon",
+   //"Marina",
+   //"Bruno",
+   //"Solange",
+   //"Naillon",
+   //"Toninho",
+   //"Carlos",
+   //"Andreia",
+  ]);
 
   return (
     <Container>
       <Header showBackButton />
       <Highlight
         title="Nome da turma"
-        subtitle="adicione a galera e seare os times"
+        subtitle="adicione a galera e separe os times"
       />
 
       <Form>
@@ -23,14 +36,40 @@ export function Players() {
         <ButtonIcon icon="add" />
       </Form>
 
+      {/* Lista de times*/}
+      <HeaderList>
+        <FlatList
+          data={["Time A", "Time B"]}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Filter
+              isActive={item === team ? true : false}
+              title={item}
+              onPress={() => setTeam(item)}
+            />
+          )}
+          horizontal
+        />
+        <NumbersOffPlayers>{players.length}</NumbersOffPlayers>
+      </HeaderList>
+
       <FlatList
-        data={["Time A", "Time B"]}
+        data={players}
         keyExtractor={(item) => item}
         renderItem={({ item }) => (
-          <Filter isActive={item === team ? true : false} title={item} onPress={() => setTeam(item)}/>
+          <PlayerCard title={item} onRemove={() => {}} />
         )}
-        horizontal
+        ListEmptyComponent={() => (
+          <ListEmpty message="Não a pessoas nesse time" />
+        )}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          { paddingBottom: 100 },
+          players.length === 0 && { flex: 1 },
+        ]}
       />
+
+      <Button type="SECONDARY" title="Remover da lista"/>
     </Container>
   );
 }
