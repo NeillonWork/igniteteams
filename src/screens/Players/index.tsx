@@ -69,7 +69,7 @@ export function Players() {
         ]}
       />
 
-      <Button type="SECONDARY" title="Remover da lista"/>
+      <Button type="SECONDARY" title="Remover turma"/>
     </Container>
   );
 }

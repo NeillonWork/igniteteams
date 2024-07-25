@@ -1,4 +1,4 @@
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider } from "styled-components/native";
 
 import {
   Roboto_400Regular,
