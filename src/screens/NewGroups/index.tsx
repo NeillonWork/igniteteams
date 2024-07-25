@@ -4,7 +4,7 @@ import { Highlight } from "@components/Highlight";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 
-export function NewGoups() {
+export function NewGroups() {
   return (
     <Container>
       <Header showBackButton />
