@@ -9,27 +9,34 @@ import { useState } from "react";
 import { PlayerCard } from "@components/PlayerCard";
 import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
+import { useRoute } from "@react-navigation/native";
+
+type RouteParams ={
+  group: string
+}
 
 export function Players() {
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState([
-   //"Neillon",
-   //"Marina",
-   //"Bruno",
-   //"Solange",
-   //"Naillon",
-   //"Toninho",
-   //"Carlos",
-   //"Andreia",
+    //"Neillon",
+    //"Marina",
+    //"Bruno",
+    //"Solange",
+    //"Naillon",
+    //"Toninho",
+    //"Carlos",
+    //"Andreia",
   ]);
+
+  //Recebendo parametro da pagina NewGroup, o Hook => group
+  const route = useRoute();
+  //Desconstruindo o `route`
+  const { group } = route.params as RouteParams;
 
   return (
     <Container>
       <Header showBackButton />
-      <Highlight
-        title="Nome da turma"
-        subtitle="adicione a galera e separe os times"
-      />
+      <Highlight title={group} subtitle="adicione a galera e separe os times" />
 
       <Form>
         <Input placeholder="Nome da pessoa" autoCorrect={false} />
@@ -69,7 +76,7 @@ export function Players() {
         ]}
       />
 
-      <Button type="SECONDARY" title="Remover turma"/>
+      <Button type="SECONDARY" title="Remover turma" />
     </Container>
   );
 }
