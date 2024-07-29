@@ -7,7 +7,8 @@
       "@assets/*":      ["./src/assets/*"],
       "@components/*":  ["./src/components/*"],
       "@screens/*":     ["./src/screens/*"],
-      "@utils/*":       ["./src/utils/*"]
+      "@utils/*":       ["./src/utils/*"],
+      "@storage/*":       ["./src/storage/*"],
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
