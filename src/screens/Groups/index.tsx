@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { FlatList } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { groupsGetAll } from "@storage/group/groupsGetAll";
 
 import { Container } from "./styles";
 import { Header } from "@components/Header";
@@ -10,14 +11,31 @@ import { GroupCard } from "@components/GroupCard";
 import { Button } from "@components/Button";
 
 export function Groups() {
+  // const [groups, setGroups] = useState<string[]>(["Galera do Neillon", "Turma da Marina"]);
+  const [groups, setGroups] = useState<string[]>([]);
   const navigation = useNavigation();
 
+  // vai para tela de criação de grupo
   function handleNewGroup() {
     navigation.navigate("new");
   }
 
-  // const [groups, setGroups] = useState<string[]>(["Galera do Neillon", "Turma da Marina"]);
-  const [groups, setGroups] = useState<string[]>([]);
+  // recupera grupo criado 
+  async function fetchGroups() {
+    try {
+      const data = await groupsGetAll();
+
+      setGroups(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //executa ao voltar para o foco da tela
+  useFocusEffect(useCallback(() => {
+    fetchGroups();
+  }, []));
+
   return (
     <Container>
       <Header />
