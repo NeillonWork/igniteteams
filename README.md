@@ -48,13 +48,10 @@
 
 # Features
 Desafios adicionais inserido ao projeto:
-- [x] Adicionar a url do repositorio git a plataforma Rocketseat.
-- [x] Atualizar as imagens do `assets`, personalizando todo App
+- [x] Atualizar as imagens do `assets`, personalizando todo App(opcional)
 - [] Compartilhar projeto no <a href="https://www.linkedin.com/in/neillonalmeida/" target="_blank">Linkedin </a>.
 - [] Adicionar novos Alerts para melhorar a navegabilidade(opcional)
-- [] Salvar lista de tarefas no dispositivo offline(opcional)
-- [] Ajustar logico do contador "Concluidas" ao exluir Tasks completas(Melhoria) 
-        {**adicionar trava onde só é possivel excluir tarefas não concluidas}
+- [x] Salvar lista de tarefas no dispositivo offline
 
 # Tecnologias
 <ul>
