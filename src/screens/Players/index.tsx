@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { Alert, FlatList } from "react-native";
-import { useFocusEffect, useRoute } from "@react-navigation/native";
+import { useEffect, useRef, useState } from "react";
+import { Alert, FlatList, TextInput } from "react-native";
+import { useRoute } from "@react-navigation/native";
 
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { plaeyersGetByGroup } from "@storage/player/playersGetByGroup";
@@ -26,10 +26,11 @@ export function Players() {
   const [team, setTeam] = useState("Time A");
   const [players, setPlayers] = useState<PlayerStorageDTO[]>([]);
   const [newPlayerName, setNewPlayerName] = useState("");
-
-  //Recebendo parametro da pagina NewGroup, o Hook => group
+  // Acessando as propiedades do input "foco"
+  const newPlayerNameInpuRef = useRef<TextInput>(null);
+  // Recebendo parametro da pagina NewGroup, o Hook => group
   const route = useRoute();
-  //Desconstruindo o `route`
+  // Desconstruindo o `route`
   const { group } = route.params as RouteParams;
 
   // ADD Nova pessoa
@@ -51,6 +52,9 @@ export function Players() {
 
       const players = await plaeyersGetByGroup(group);
 
+      newPlayerNameInpuRef.current?.blur();
+
+      setNewPlayerName("");
       fetchPlayersByTeam();
     } catch (error) {
       if (error instanceof AppError) {
@@ -83,10 +87,13 @@ export function Players() {
 
       <Form>
         <Input
+          inputRef={newPlayerNameInpuRef}
           placeholder="Nome da pessoa"
           autoCorrect={false}
           value={newPlayerName}
           onChangeText={setNewPlayerName}
+          onSubmitEditing={handleAddPlayer}
+          returnKeyType="done"
         />
         <ButtonIcon icon="add" onPress={handleAddPlayer} />
       </Form>
