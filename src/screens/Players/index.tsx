@@ -17,6 +17,7 @@ import { ListEmpty } from "@components/ListEmpty";
 import { Button } from "@components/Button";
 import { AppError } from "@utils/AppError";
 import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
+import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
 
 type RouteParams = {
   group: string;
@@ -51,6 +52,7 @@ export function Players() {
       await playerAddByGroup(newPlayer, group);
 
       const players = await plaeyersGetByGroup(group);
+      
 
       newPlayerNameInpuRef.current?.blur();
 
@@ -62,6 +64,17 @@ export function Players() {
       } else {
         Alert.alert("Nova pessoa", "Não foi possivel adicionar");
       }
+    }
+  }
+
+  async function handlePlayerRemove(playerName: string) {
+
+    fetchPlayersByTeam()
+    try {
+      await playerRemoveByGroup(playerName, group)
+
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -119,7 +132,7 @@ export function Players() {
         data={players}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <PlayerCard title={item.name} onRemove={() => {}} />
+          <PlayerCard title={item.name} onRemove={() => handlePlayerRemove(item.name)} />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não a pessoas nesse time" />
