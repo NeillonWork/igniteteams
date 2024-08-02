@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Alert, FlatList, TextInput } from "react-native";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { playerAddByGroup } from "@storage/player/playerAddByGroup";
 import { plaeyersGetByGroup } from "@storage/player/playersGetByGroup";
@@ -18,6 +18,7 @@ import { Button } from "@components/Button";
 import { AppError } from "@utils/AppError";
 import { PlayerStorageDTO } from "@storage/player/PlayerStorageDTO";
 import { playerRemoveByGroup } from "@storage/player/playerRemoveByGroup";
+import { groupRemoveByName } from "@storage/group/groupRemoveByName";
 
 type RouteParams = {
   group: string;
@@ -33,6 +34,7 @@ export function Players() {
   const route = useRoute();
   // Desconstruindo o `route`
   const { group } = route.params as RouteParams;
+  const navigation = useNavigation();
 
   // ADD Nova pessoa
   async function handleAddPlayer() {
@@ -52,7 +54,6 @@ export function Players() {
       await playerAddByGroup(newPlayer, group);
 
       const players = await plaeyersGetByGroup(group);
-      
 
       newPlayerNameInpuRef.current?.blur();
 
@@ -66,16 +67,29 @@ export function Players() {
       }
     }
   }
-
+  // Remove pessoa
   async function handlePlayerRemove(playerName: string) {
-
-    fetchPlayersByTeam()
+    fetchPlayersByTeam();
     try {
-      await playerRemoveByGroup(playerName, group)
-
+      await playerRemoveByGroup(playerName, group);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
+  }
+
+  //Deve? - Remover Grupo (sim/nao)
+  async function handleRemoveGroup() {
+    Alert.alert("Remover", "Deseja remover o grupo", [
+      { text: "Não", style: "cancel" },
+      { text: "Sim", onPress: () => groupRemove() },
+    ]);
+  }
+  async function groupRemove() {
+    try {
+      await groupRemoveByName(group);
+
+      navigation.navigate("groups");
+    } catch (error) {}
   }
 
   // Carregando lista de pessoas por Time
@@ -132,7 +146,10 @@ export function Players() {
         data={players}
         keyExtractor={(item) => item.name}
         renderItem={({ item }) => (
-          <PlayerCard title={item.name} onRemove={() => handlePlayerRemove(item.name)} />
+          <PlayerCard
+            title={item.name}
+            onRemove={() => handlePlayerRemove(item.name)}
+          />
         )}
         ListEmptyComponent={() => (
           <ListEmpty message="Não a pessoas nesse time" />
@@ -144,7 +161,11 @@ export function Players() {
         ]}
       />
 
-      <Button type="SECONDARY" title="Remover turma" />
+      <Button
+        type="SECONDARY"
+        title="Remover turma"
+        onPress={handleRemoveGroup}
+      />
     </Container>
   );
 }
